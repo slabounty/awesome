@@ -1,6 +1,4 @@
-require_relative '../lexer'
-require 'pry'
-require 'awesome_print'
+require 'spec_helper'
 
 describe Lexer do
   let(:code) {
