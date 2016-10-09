@@ -1,15 +1,35 @@
+PATH
+  remote: .
+  specs:
+    awesome (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
     awesome_print (1.7.0)
     coderay (1.1.1)
+    coveralls (0.7.1)
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      term-ansicolor
+      thor
     diff-lcs (1.2.5)
+    docile (1.1.5)
+    json (2.0.2)
     method_source (0.8.2)
+    mime-types (2.3)
+    multi_json (1.10.1)
+    netrc (0.7.7)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     racc (1.4.14)
+    rake (10.4.2)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -23,16 +43,30 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
+    thor (0.19.1)
+    tins (1.3.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome!
   awesome_print
-  pry
+  bundler (~> 1.11)
+  coveralls (~> 0.7)
+  pry (~> 0.10)
   racc
-  rspec
+  rake (~> 10.0)
+  rspec (~> 3.0)
+  simplecov (= 0.12)
 
 BUNDLED WITH
    1.11.2

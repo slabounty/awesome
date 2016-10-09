@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-gem 'rspec'
-gem 'awesome_print'
-gem 'pry'
-gem 'racc'
+
+# Specify your gem's dependencies in awesome.gemspec
+gemspec

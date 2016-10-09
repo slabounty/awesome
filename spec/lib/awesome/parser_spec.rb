@@ -1,6 +1,4 @@
-require_relative '../parser'
-require 'pry'
-require 'awesome_print'
+require 'spec_helper'
 
 describe Parser do
   let(:code) {
