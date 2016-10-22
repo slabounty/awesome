@@ -33,7 +33,7 @@ class CallNode < Struct.new(:receiver, :method, :arguments); end
 
 class GetConstantNode < Struct.new(:name); end
 
-class SetContantNode < Struct.new(:name, :value); end
+class SetConstantNode < Struct.new(:name, :value); end
 
 class GetLocalNode < Struct.new(:name); end
 

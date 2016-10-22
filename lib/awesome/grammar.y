@@ -48,6 +48,7 @@ rule
   | Class
   | If
   | '(' Expression ')'                 { result = val[1] }
+  ;
 
   Terminator:
     NEWLINE
@@ -75,24 +76,24 @@ rule
   ;
 
   ArgList:
-    Expression
+    Expression                         { result = val }
   | ArgList "," Expression             { result = val[0] << val[2] }
   ;
 
   Operator:
     Expression '||' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '&&' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '==' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '!=' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '>' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '>=' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '<' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '<=' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '+' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '-' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '*' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
-    Expression '/' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
-    ;
+  | Expression '&&' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '==' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '!=' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '>' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '>=' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '<' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '<=' Expression         { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '+' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '-' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '*' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
+  | Expression '/' Expression          { result = CallNode.new(val[0], val[1], [val[2]]) }
+  ;
 
     GetConstant:
       CONSTANT                         { result = GetConstantNode.new(val[0]) }
