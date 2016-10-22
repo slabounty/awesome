@@ -22,7 +22,5 @@ Constants["Class"].def :new do |receiver, arguments|
 end
 
 Constants["Object"].def :print do |receiver, arguments|
-  puts "print receiver = #{receiver.inspect} arguments = #{arguments.inspect}"
-  puts arguments.first.ruby_value
   Constants["nil"]
 end

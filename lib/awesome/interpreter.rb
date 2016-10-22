@@ -81,7 +81,6 @@ class CallNode
       value = context.current_self
     end
 
-    puts "CallNode method = #{method} arguments = #{arguments.inspect}"
     evaluated_arguments = arguments.map { |arg| arg.eval(context) }
     value.call(method, evaluated_arguments)
   end
