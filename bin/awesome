@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
+
+require 'awesome'
+require 'awesome/interpreter'
+require 'readline'
+
+interpreter = Interpreter.new
+
+if file = ARGV.first
+  interpreter.eval File.read(file)
+else
+  puts "Awesome REPL, Ctnl-C to quit"
+
+  loop do
+    line = Readline::readline(">> ")
+    Readline::HISTORY.push(line)
+    value = interpreter.eval(line)
+    puts "=> #{value.ruby_value.inspect}"
+  end
+end
