@@ -1,0 +1,8 @@
+class WorkingObject:
+  def does_it_work:
+    "yeah!"
+
+working = WorkingObject.new
+if working:
+  print("working.does_it_work = ", working.does_it_work)
+  print(working.does_it_work)
