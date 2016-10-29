@@ -12,12 +12,16 @@ interpreter = Interpreter.new
 if file = ARGV.first
   interpreter.eval File.read(file)
 else
-  puts "Awesome REPL, Ctnl-C to quit"
+  puts "Awesome REPL, Ctrl-C to quit"
 
   loop do
-    line = Readline::readline(">> ")
-    Readline::HISTORY.push(line)
-    value = interpreter.eval(line)
-    puts "=> #{value.ruby_value.inspect}"
+    begin
+      line = Readline::readline(">> ")
+      Readline::HISTORY.push(line)
+      value = interpreter.eval(line)
+      puts "=> #{value.ruby_value.inspect}"
+    rescue => e
+      puts "error found: #{e}"
+    end
   end
 end

@@ -22,7 +22,8 @@ Constants["Class"].def :new do |receiver, arguments|
 end
 
 Constants["Object"].def :print do |receiver, arguments|
-  puts arguments.first.ruby_value
+  arguments.each { |a| print a.ruby_value }
+  puts "\n"
   Constants["nil"]
 end
 

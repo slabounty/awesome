@@ -1,0 +1,5 @@
+def boo(a):
+  a
+
+print(boo("yah!"))
+
