@@ -22,5 +22,45 @@ Constants["Class"].def :new do |receiver, arguments|
 end
 
 Constants["Object"].def :print do |receiver, arguments|
+  puts arguments.first.ruby_value
   Constants["nil"]
+end
+
+NUMERICAL_OPERATORS = [
+  "+", "-", "*", "/",
+]
+
+NUMERICAL_OPERATORS.each do |op|
+  Constants["Number"].def op.to_sym do |receiver, arguments|
+    result = receiver.ruby_value.send(op.to_sym, arguments.first.ruby_value)
+    Constants["Number"].new_with_value(result)
+  end
+end
+
+COMPARISON_OPERATORS = [
+  ">", ">=", "<", "<=",
+  "==", "!=",
+]
+
+COMPARISON_OPERATORS.each do |op|
+  Constants["Number"].def op.to_sym do |receiver, arguments|
+    result = receiver.ruby_value.send(op.to_sym, arguments.first.ruby_value)
+    result ?  Constants["true"] : Constants["false"]
+  end
+end
+
+Constants["TrueClass"].def '&&'.to_sym do|receiver,arguments|
+  arguments.first.ruby_value ? Constants["true"] : Constants["false"]
+end
+
+Constants["FalseClass"].def '&&'.to_sym do|receiver,arguments|
+  Constants["false"]
+end
+
+Constants["TrueClass"].def '||'.to_sym do|receiver,arguments|
+  Constants["true"]
+end
+
+Constants["FalseClass"].def '||'.to_sym do|receiver,arguments|
+  arguments.first.ruby_value ? Constants["true"] : Constants["false"]
 end

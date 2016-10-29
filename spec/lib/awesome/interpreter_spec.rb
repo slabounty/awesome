@@ -19,6 +19,54 @@ describe Interpreter do
     end
   end
 
+  describe "math" do
+    it "adds" do
+      expect(Interpreter.new.eval("2 + 3").ruby_value).to eq(5)
+    end
+
+    it "subtracts" do
+      expect(Interpreter.new.eval("5 + 3").ruby_value).to eq(8)
+    end
+  end
+
+  describe "comparison" do
+    it "compares <" do
+      expect(Interpreter.new.eval("5 < 3").ruby_value).to eq(false)
+    end
+
+    it "compares >" do
+      expect(Interpreter.new.eval("5 > 3").ruby_value).to eq(true)
+    end
+  end
+
+  describe "logical &&" do
+    context "when both sides are true" do
+      it "is true" do
+        expect(Interpreter.new.eval("(5 > 3) && (2 < 3)").ruby_value).to eq(true)
+      end
+    end
+
+    context "when both sides are not true" do
+      it "is false" do
+        expect(Interpreter.new.eval("(5 < 3) && (3 > 2)").ruby_value).to eq(false)
+      end
+    end
+  end
+
+  describe "logical ||" do
+    context "when one side is true" do
+      it "is true" do
+        expect(Interpreter.new.eval("(5 > 3) || (3 < 2)").ruby_value).to eq(true)
+      end
+    end
+
+    context "when both sides are not true" do
+      it "is false" do
+        expect(Interpreter.new.eval("(5 < 3) || (2 > 3)").ruby_value).to eq(false)
+      end
+    end
+  end
+
   describe "methods" do
     it "runs methods" do
     code = <<-CODE
