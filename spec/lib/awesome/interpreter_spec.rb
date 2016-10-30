@@ -117,6 +117,19 @@ CODE
     end
   end
 
+  describe "if else" do
+    it "if's else's" do
+      code = <<-CODE
+if false:
+  "works!"
+else:
+  "works with else"
+CODE
+
+      expect(Interpreter.new.eval(code).ruby_value).to eq("works with else")
+    end
+  end
+
   describe "full test" do
     let(:code) {
       <<-CODE

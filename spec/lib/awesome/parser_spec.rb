@@ -114,12 +114,37 @@ CODE
     let(:nodes) {
       Nodes.new([
         IfNode.new(TrueNode.new,
-                   Nodes.new([NilNode.new])
+                   Nodes.new([NilNode.new]),
+                   []
                   )
       ])
     }
 
     it "parses an if" do
+      expect(Parser.new.parse(code)).to eq(nodes)
+    end
+  end
+
+  context "if/else" do
+    let(:code) {
+      <<-CODE
+if true:
+  4
+else:
+  5
+CODE
+    }
+
+    let(:nodes) {
+      Nodes.new([
+        IfNode.new(TrueNode.new,
+                   Nodes.new([NumberNode.new(4)]),
+                   Nodes.new([NumberNode.new(5)])
+                  )
+      ])
+    }
+
+    it "parses an if/else" do
       expect(Parser.new.parse(code)).to eq(nodes)
     end
   end

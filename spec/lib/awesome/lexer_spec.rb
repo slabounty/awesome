@@ -35,6 +35,78 @@ describe Lexer do
     end
   end
 
+  context "if" do
+    let(:code) {
+      <<-CODE
+if 1:
+  "this"
+CODE
+    }
+
+    let(:tokens) {
+      [
+        [:IF, "if"], [:NUMBER, 1],
+        [:INDENT, 2],
+          [:STRING, "this"], 
+        [:DEDENT, 0]
+
+      ]
+    }
+    it "parses an if" do
+      result = Lexer.new.tokenize(code)
+      expect(result).to eq(tokens)
+    end
+
+  end
+
+  context "if/else" do
+    let(:code) {
+      <<-CODE
+if 1:
+  "this"
+else:
+  "that"
+CODE
+    }
+
+    let(:tokens) {
+      [
+        [:IF, "if"], [:NUMBER, 1],
+        [:INDENT, 2],
+          [:STRING, "this"], 
+        [:DEDENT, 0], [:NEWLINE, "\n"],
+        [:ELSE, "else"],
+        [:INDENT, 2], [:STRING, "that"],
+        [:DEDENT, 0]
+      ]
+    }
+    it "parses an if/else" do
+      result = Lexer.new.tokenize(code)
+      expect(result).to eq(tokens)
+    end
+
+  end
+
+  context "methods" do
+    let(:code) {
+      <<-CODE
+def m:
+  "hello"
+  5 + 7
+      CODE
+    }
+    let("tokens") {
+      [[:DEF, "def"], [:IDENTIFIER, "m"], 
+       [:INDENT, 2], [:STRING, "hello"], [:NEWLINE, "\n"], 
+       [:NUMBER, 5], ["+", "+"], [:NUMBER, 7], [:DEDENT, 0]]
+    }
+
+    it  "handles methods" do
+      result = Lexer.new.tokenize(code)
+      expect(result).to eq(tokens)
+    end
+  end
+
   context "indent" do
     let(:code) {
       <<-CODE
