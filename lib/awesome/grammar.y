@@ -1,5 +1,6 @@
 class Parser
   token IF
+  token ELSE
   token DEF
   token CLASS
   token NEWLINE
@@ -22,6 +23,8 @@ class Parser
     right '='
     left ','
   preclow
+
+  expect 2
 
 rule
   Program:
@@ -132,7 +135,8 @@ rule
     ;
 
     If:
-      IF Expression Block              { result = IfNode.new(val[1], val[2]) }
+      IF Expression Block              { result = IfNode.new(val[1], val[2], []) }
+    | IF Expression Block Terminator ELSE Block   { result = IfNode.new(val[1], val[2], val[5]) }
     ;
 end
 

@@ -10,3 +10,6 @@ Awesome Programming Language from Book [How to Create Your Own Freaking Awesome 
 
 ## Running the REPL
     bin/console
+
+## Building
+    bundle exec rake parser:build

@@ -113,6 +113,8 @@ class IfNode
   def eval(context)
     if condition.eval(context).ruby_value
       body.eval(context)
+    elsif elsebody
+      elsebody.eval(context)
     else
       Constants["nil"]
     end
