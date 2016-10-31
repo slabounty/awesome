@@ -38,7 +38,7 @@ describe Lexer do
   end
 
   context "if" do
-    let(:code) { File.read("#{lexer_code}/if_code.awm") }
+    let(:code) { File.read("#{lexer_code}/if.awm") }
 
     let(:tokens) {
       [
@@ -57,7 +57,7 @@ describe Lexer do
   end
 
   context "if/else" do
-    let(:code) { File.read("#{lexer_code}/if_else_code.awm") }
+    let(:code) { File.read("#{lexer_code}/if_else.awm") }
 
     let(:tokens) {
       [
@@ -77,7 +77,7 @@ describe Lexer do
   end
 
   context "comments" do
-    let(:code) { File.read("#{lexer_code}/comment_code.awm") }
+    let(:code) { File.read("#{lexer_code}/comment.awm") }
 
     let(:tokens) {
       [
@@ -98,7 +98,7 @@ describe Lexer do
   end
 
   context "methods" do
-    let(:code) { File.read("#{lexer_code}/method_code.awm") }
+    let(:code) { File.read("#{lexer_code}/method.awm") }
 
     let("tokens") {
       [[:DEF, "def"], [:IDENTIFIER, "m"], 
@@ -113,7 +113,7 @@ describe Lexer do
   end
 
   context "methods with comments" do
-    let(:code) { File.read("#{lexer_code}/method_with_comments_code.awm") }
+    let(:code) { File.read("#{lexer_code}/method_with_comments.awm") }
 
     let("tokens") {
       [
@@ -130,7 +130,7 @@ describe Lexer do
   end
 
   context "indent" do
-    let(:code) { File.read("#{lexer_code}/indent_code.awm") }
+    let(:code) { File.read("#{lexer_code}/indent.awm") }
 
     let(:tokens) {
       [
