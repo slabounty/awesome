@@ -9,7 +9,9 @@ Awesome Programming Language from Book [How to Create Your Own Freaking Awesome 
     gem install awesome
 
 ## Running the REPL
-    bin/console
+    bin/awesome
+or
+    bin/awesome path/to/file.awm
 
 ## Building
     bundle exec rake parser:build

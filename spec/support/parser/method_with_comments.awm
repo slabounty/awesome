@@ -1,0 +1,3 @@
+# With a comment!
+def method(a, b):
+  true # comment on the return too!

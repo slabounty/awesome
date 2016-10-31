@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Lexer do
+  let(:lexer_code) { "spec/support/lexer" }
+
   context "number" do
     it "handles numbers" do
       expect(Lexer.new.tokenize("1")).to eq([[:NUMBER, 1]])
@@ -36,12 +38,7 @@ describe Lexer do
   end
 
   context "if" do
-    let(:code) {
-      <<-CODE
-if 1:
-  "this"
-CODE
-    }
+    let(:code) { File.read("#{lexer_code}/if_code.awm") }
 
     let(:tokens) {
       [
@@ -60,14 +57,7 @@ CODE
   end
 
   context "if/else" do
-    let(:code) {
-      <<-CODE
-if 1:
-  "this"
-else:
-  "that"
-CODE
-    }
+    let(:code) { File.read("#{lexer_code}/if_else_code.awm") }
 
     let(:tokens) {
       [
@@ -84,17 +74,32 @@ CODE
       result = Lexer.new.tokenize(code)
       expect(result).to eq(tokens)
     end
+  end
 
+  context "comments" do
+    let(:code) { File.read("#{lexer_code}/comment_code.awm") }
+
+    let(:tokens) {
+      [
+        [:NEWLINE, "\n"],
+        [:IF, "if"], [:NUMBER, 1],
+        [:INDENT, 2],
+          [:STRING, "this"], 
+        [:DEDENT, 0], [:NEWLINE, "\n"],
+        [:ELSE, "else"],
+        [:INDENT, 2], [:STRING, "that"],
+        [:DEDENT, 0]
+      ]
+    }
+    it "parses an comments out" do
+      result = Lexer.new.tokenize(code)
+      expect(result).to eq(tokens)
+    end
   end
 
   context "methods" do
-    let(:code) {
-      <<-CODE
-def m:
-  "hello"
-  5 + 7
-      CODE
-    }
+    let(:code) { File.read("#{lexer_code}/method_code.awm") }
+
     let("tokens") {
       [[:DEF, "def"], [:IDENTIFIER, "m"], 
        [:INDENT, 2], [:STRING, "hello"], [:NEWLINE, "\n"], 
@@ -107,20 +112,25 @@ def m:
     end
   end
 
-  context "indent" do
-    let(:code) {
-      <<-CODE
-if 1:
-  if 2:
-    print("...")
-    if false:
-      pass
-    print ("done!")
-  2
+  context "methods with comments" do
+    let(:code) { File.read("#{lexer_code}/method_with_comments_code.awm") }
 
-print "The End"
-      CODE
+    let("tokens") {
+      [
+        [:NEWLINE, "\n"],
+        [:DEF, "def"], [:IDENTIFIER, "m"], 
+        [:INDENT, 2], [:STRING, "hello"], [:NEWLINE, "\n"],
+        [:NUMBER, 5], ["+", "+"], [:NUMBER, 7], [:DEDENT, 0]]
     }
+
+    it  "handles methods with comments" do
+      result = Lexer.new.tokenize(code)
+      expect(result).to eq(tokens)
+    end
+  end
+
+  context "indent" do
+    let(:code) { File.read("#{lexer_code}/indent_code.awm") }
 
     let(:tokens) {
       [

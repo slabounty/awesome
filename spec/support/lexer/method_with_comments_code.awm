@@ -1,0 +1,4 @@
+# Comment before a method
+def m:
+  "hello"
+  5 + 7

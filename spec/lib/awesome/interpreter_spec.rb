@@ -79,6 +79,20 @@ CODE
     end
   end
 
+  describe "methods with comments" do
+    it "runs methods" do
+    code = <<-CODE
+# Here's a comment
+
+def boo(a):
+  a           # Here's another
+
+boo("yah!")   # run this!
+CODE
+      expect(Interpreter.new.eval(code).ruby_value).to eq("yah!")
+    end
+  end
+
   describe "reopen class" do
     it "reopens the class" do
       code = <<-CODE
