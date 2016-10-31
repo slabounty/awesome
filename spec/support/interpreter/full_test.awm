@@ -1,0 +1,7 @@
+class Worker:
+  def does_it_work:
+    "yeah"
+
+worker_object = Worker.new
+if worker_object:
+  print(worker_object.does_it_work)

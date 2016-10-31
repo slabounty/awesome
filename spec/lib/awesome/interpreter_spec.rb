@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Interpreter do
+  let(:interpreter_code) { "spec/support/interpreter" }
+
   describe "number" do
     it "works with numbers" do
       expect(Interpreter.new.eval("1").ruby_value).to eq(1)
@@ -69,97 +71,50 @@ describe Interpreter do
 
   describe "methods" do
     it "runs methods" do
-    code = <<-CODE
-def boo(a):
-  a
-
-boo("yah!")
-CODE
+      code =  File.read("#{interpreter_code}/methods.awm")
       expect(Interpreter.new.eval(code).ruby_value).to eq("yah!")
     end
   end
 
   describe "methods with comments" do
     it "runs methods" do
-    code = <<-CODE
-# Here's a comment
-
-def boo(a):
-  a           # Here's another
-
-boo("yah!")   # run this!
-CODE
+      code =  File.read("#{interpreter_code}/methods_with_comments.awm")
       expect(Interpreter.new.eval(code).ruby_value).to eq("yah!")
     end
   end
 
   describe "reopen class" do
     it "reopens the class" do
-      code = <<-CODE
-class Number:
-  def ten:
-    10
-
-1.ten
-CODE
-
+      code =  File.read("#{interpreter_code}/reopen_class.awm")
       expect(Interpreter.new.eval(code).ruby_value).to eq(10)
     end
   end
 
   describe "define class" do
     it "defines a class" do
-      code = <<-CODE
-class Pony:
-  def awesome:
-    true
-
-Pony.new.awesome
-CODE
+      code =  File.read("#{interpreter_code}/define_class.awm")
       expect(Interpreter.new.eval(code).ruby_value).to eq(true)
     end
   end
 
   describe "if" do
     it "if's" do
-      code = <<-CODE
-if true:
-  "works!"
-CODE
-
+      code =  File.read("#{interpreter_code}/if.awm")
       expect(Interpreter.new.eval(code).ruby_value).to eq("works!")
     end
   end
 
   describe "if else" do
     it "if's else's" do
-      code = <<-CODE
-if false:
-  "works!"
-else:
-  "works with else"
-CODE
-
+      code =  File.read("#{interpreter_code}/if_else.awm")
       expect(Interpreter.new.eval(code).ruby_value).to eq("works with else")
     end
   end
 
   describe "full test" do
-    let(:code) {
-      <<-CODE
-class Worker:
-  def does_it_work:
-    "yeah"
-
-worker_object = Worker.new
-if worker_object:
-  print(worker_object.does_it_work)
-      CODE
-    }
-
     it "prints" do
-      Interpreter.new.eval(code)
-      #expect(Interpreter.new.eval(code)).to eq("something")
+      code =  File.read("#{interpreter_code}/full_test.awm")
+      expect {Interpreter.new.eval(code) }.to output("yeah\n").to_stdout
     end
   end
 end
