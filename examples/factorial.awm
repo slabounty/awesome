@@ -1,0 +1,14 @@
+# A comment
+
+
+;
+
+# something else
+def fact(n):
+  if n <= 0:
+    1                # Return a 1
+  else:
+    n * fact(n-1)    # Run factorial
+
+print(fact(5))       # Start me up!!
+

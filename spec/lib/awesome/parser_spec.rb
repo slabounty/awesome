@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Parser do
+  let(:parser_code) { "spec/support/parser" }
+
   describe "#parse" do
     it "parses numbers" do
       expect(Parser.new.parse("1")).to eq(Nodes.new([NumberNode.new(1)]))
@@ -25,10 +27,7 @@ describe Parser do
     end
 
     it "parses methods without parameters" do
-      code = <<-CODE
-def method:
-  true
-CODE
+      code =  File.read("#{parser_code}/method_without_params.awm")
       nodes = Nodes.new([
         DefNode.new("method", [],
                     Nodes.new([TrueNode.new])
@@ -39,10 +38,23 @@ CODE
     end
 
     it "parses a method with parameters" do
-      code = <<-CODE
-def method(a, b):
-  true
-      CODE
+      code =  File.read("#{parser_code}/method_with_params.awm")
+
+      nodes = Nodes.new(
+        [
+          DefNode.new("method", ["a", "b"],
+                      Nodes.new([TrueNode.new])
+                     )
+        ])
+
+      expect(Parser.new.parse(code)).to eq(nodes)
+    end
+
+    # This next one doesn't work because of the grammar. We can't
+    # start with a *single* newline (which is what the single comment
+    # becomes.
+    xit "parses a method with comments" do
+      code =  File.read("#{parser_code}/method_with_comments.awm")
 
       nodes = Nodes.new(
         [
@@ -55,10 +67,7 @@ def method(a, b):
     end
 
     it "parses a class" do
-      code = <<-CODE
-class Muffin:
-  true
-CODE
+      code =  File.read("#{parser_code}/class.awm")
       nodes = Nodes.new([
         ClassNode.new("Muffin",
                       Nodes.new([TrueNode.new])
@@ -68,7 +77,7 @@ CODE
     end
   end
 
-  context "arithmatic" do
+  context "arithmetic" do
     let(:nodes) { Nodes.new([
       CallNode.new(NumberNode.new(1), "+", [
         CallNode.new(NumberNode.new(2), "*", [NumberNode.new(3)])
@@ -104,12 +113,7 @@ CODE
   end
 
   context "if" do
-    let(:code) {
-      <<-CODE
-if true:
-  nil
-CODE
-    }
+    let(:code) { File.read("#{parser_code}/if.awm") }
 
     let(:nodes) {
       Nodes.new([
@@ -126,14 +130,7 @@ CODE
   end
 
   context "if/else" do
-    let(:code) {
-      <<-CODE
-if true:
-  4
-else:
-  5
-CODE
-    }
+    let(:code) { File.read("#{parser_code}/if_else.awm") }
 
     let(:nodes) {
       Nodes.new([

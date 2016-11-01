@@ -55,6 +55,8 @@ class Lexer
       elsif operator = chunk[/\A(\|\||&&|==|!=|<=|>=)/, 1]
         tokens << [operator, operator]
         i += operator.size
+      elsif comment = chunk[/\A#.*$/]
+        i += comment.size
       elsif chunk.match(/\A /)
         i += 1
       else
