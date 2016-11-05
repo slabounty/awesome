@@ -111,6 +111,13 @@ describe Interpreter do
     end
   end
 
+  describe "while" do
+    it "implements while loops" do
+      code =  File.read("#{interpreter_code}/while.awm")
+      expect(Interpreter.new.eval(code).ruby_value).to eq(10)
+    end
+  end
+
   describe "full test" do
     it "prints" do
       code =  File.read("#{interpreter_code}/full_test.awm")

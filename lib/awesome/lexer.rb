@@ -1,6 +1,6 @@
 class Lexer
 
-  KEYWORDS = %w[def class if true else false nil]
+  KEYWORDS = %w[def class if true else false nil while]
 
   def tokenize(code)
     code.chomp!
