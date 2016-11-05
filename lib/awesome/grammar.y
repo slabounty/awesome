@@ -1,6 +1,7 @@
 class Parser
   token IF
   token ELSE
+  token WHILE
   token DEF
   token CLASS
   token NEWLINE
@@ -51,6 +52,7 @@ rule
   | Class
   | If
   | '(' Expression ')'                 { result = val[1] }
+  | While
   ;
 
   Terminator:
@@ -134,10 +136,15 @@ rule
       CLASS CONSTANT Block             { result = ClassNode.new(val[1], val[2]) }
     ;
 
+    While:
+      WHILE Expression Block { result = WhileNode.new(val[1], val[2]) }
+    ;
+
     If:
       IF Expression Block              { result = IfNode.new(val[1], val[2], []) }
     | IF Expression Block Terminator ELSE Block   { result = IfNode.new(val[1], val[2], val[5]) }
     ;
+
 end
 
 ---- header

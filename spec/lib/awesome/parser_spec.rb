@@ -145,4 +145,20 @@ describe Parser do
       expect(Parser.new.parse(code)).to eq(nodes)
     end
   end
+
+  context "while" do
+    let(:code) { File.read("#{parser_code}/while.awm") }
+
+    let(:nodes) {
+      Nodes.new([
+        WhileNode.new(
+          TrueNode.new,
+          Nodes.new([NilNode.new]))
+      ])
+    }
+
+    it "parses an while" do
+      expect(Parser.new.parse(code)).to eq(nodes)
+    end
+  end
 end
