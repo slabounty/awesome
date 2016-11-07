@@ -75,14 +75,17 @@ end
 
 class CallNode
   def eval(context)
-    if receiver
-      value = receiver.eval(context)
-    else
-      value = context.current_self
-    end
+    callee(context).call(method, evaluated_arguments(context))
+  rescue ReturnNode::ReturnValue => e
+    return e.value
+  end
 
-    evaluated_arguments = arguments.map { |arg| arg.eval(context) }
-    value.call(method, evaluated_arguments)
+  def evaluated_arguments(context)
+    arguments.map { |arg| arg.eval(context) }
+  end
+
+  def callee(context)
+    receiver ? receiver.eval(context) : context.current_self
   end
 end
 
@@ -127,5 +130,19 @@ class WhileNode
       body.eval(context)
     end
     Constants["nil"]
+  end
+end
+
+class ReturnNode
+  class ReturnValue < StandardError
+    attr_reader :value
+    def initialize(message, value)
+      @value = value
+      super message
+    end
+  end
+
+  def eval(context)
+    fail ReturnValue.new("Returning", self.value.eval(context))
   end
 end

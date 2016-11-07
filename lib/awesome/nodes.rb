@@ -46,3 +46,5 @@ class ClassNode < Struct.new(:name, :body); end
 class IfNode < Struct.new(:condition, :body, :elsebody); end
 
 class WhileNode < Struct.new(:condition, :body); end
+
+class ReturnNode < Struct.new(:value); end
