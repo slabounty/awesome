@@ -2,6 +2,7 @@ class Parser
   token IF
   token ELSE
   token WHILE
+  token RETURN
   token DEF
   token CLASS
   token NEWLINE
@@ -53,6 +54,7 @@ rule
   | If
   | '(' Expression ')'                 { result = val[1] }
   | While
+  | Return
   ;
 
   Terminator:
@@ -137,7 +139,11 @@ rule
     ;
 
     While:
-      WHILE Expression Block { result = WhileNode.new(val[1], val[2]) }
+      WHILE Expression Block           { result = WhileNode.new(val[1], val[2]) }
+    ;
+
+    Return:
+      RETURN Expression                { result = ReturnNode.new(val[1]) }
     ;
 
     If:

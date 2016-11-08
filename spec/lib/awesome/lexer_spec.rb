@@ -3,6 +3,16 @@ require 'spec_helper'
 describe Lexer do
   let(:lexer_code) { "spec/support/lexer" }
 
+  context "keywords" do
+    it "handles return" do
+      expect(Lexer.new.tokenize('def')).to eq([[:DEF, "def"]])
+    end
+
+    it "handles return" do
+      expect(Lexer.new.tokenize('return')).to eq([[:RETURN, "return"]])
+    end
+  end
+
   context "number" do
     it "handles numbers" do
       expect(Lexer.new.tokenize("1")).to eq([[:NUMBER, 1]])

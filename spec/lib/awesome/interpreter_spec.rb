@@ -118,6 +118,13 @@ describe Interpreter do
     end
   end
 
+  describe "return" do
+    it "implements return from methods" do
+      code =  File.read("#{interpreter_code}/return.awm")
+      expect(Interpreter.new.eval(code).ruby_value).to eq(5)
+    end
+  end
+
   describe "full test" do
     it "prints" do
       code =  File.read("#{interpreter_code}/full_test.awm")

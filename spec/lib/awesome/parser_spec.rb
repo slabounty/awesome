@@ -161,4 +161,20 @@ describe Parser do
       expect(Parser.new.parse(code)).to eq(nodes)
     end
   end
+
+  context "return" do
+    let(:code) { File.read("#{parser_code}/return.awm") }
+
+    let(:nodes) {
+      Nodes.new([
+        ReturnNode.new(
+          NumberNode.new(5)
+          )
+      ])
+    }
+
+    it "parses an return" do
+      expect(Parser.new.parse(code)).to eq(nodes)
+    end
+  end
 end
