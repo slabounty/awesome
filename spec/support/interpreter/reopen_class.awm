@@ -1,5 +1,5 @@
-class Number:
-  def ten:
+class Number
+  def ten
     10
 
 1.ten

@@ -1,7 +1,7 @@
-if 1:
-  if 2:
+if 1
+  if 2
     print("...")
-    if false:
+    if false
       pass
     print ("done!")
   2

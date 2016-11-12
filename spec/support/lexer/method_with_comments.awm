@@ -1,4 +1,4 @@
 # Comment before a method
-def m:
+def m
   "hello"
   5 + 7

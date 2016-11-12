@@ -1,2 +1,2 @@
-def method(a, b):
+def method(a, b)
   true
