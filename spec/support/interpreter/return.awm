@@ -1,6 +1,6 @@
-def test_return():
+def test_return()
   i = 0
-  while (i < 4):
+  while (i < 4)
     return 5
     i = i + 1
   i  

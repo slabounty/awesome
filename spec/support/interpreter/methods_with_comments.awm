@@ -1,6 +1,6 @@
 # Here's a comment
 
-def boo(a):
+def boo(a)
   a           # Here's another
 
 boo("yah!")   # run this!

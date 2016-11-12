@@ -1,4 +1,4 @@
-def boo(a):
+def boo(a)
   a
 
 boo("yah!")

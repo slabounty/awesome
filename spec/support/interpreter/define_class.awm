@@ -1,5 +1,5 @@
-class Pony:
-  def awesome:
+class Pony
+  def awesome
     true
 
 Pony.new.awesome

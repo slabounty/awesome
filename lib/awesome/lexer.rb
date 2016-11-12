@@ -30,26 +30,20 @@ class Lexer
       elsif string = chunk[/\A"([^"]*)"/,1]
         tokens << [:STRING, string]
         i += string.size + 2
-      elsif indent = chunk[/\A\:\n( +)/m, 1]
-        if indent.size < current_indent
-          raise "Bad indent leve, got #{indent.size} indents, expected > #{current_indent}"
-        end
-        current_indent = indent.size
-        indent_stack.push(current_indent)
-        tokens << [:INDENT, indent.size]
-        i += indent.size + 2
       elsif indent = chunk[/\A\n( *)/m, 1]
         if indent.size == current_indent
           tokens <<[:NEWLINE, "\n"]
+        elsif indent.size > current_indent
+          current_indent = indent.size
+          indent_stack.push(current_indent)
+          tokens << [:INDENT, indent.size]
         elsif indent.size < current_indent
           while indent.size < current_indent do
             indent_stack.pop
-            current_indent = indent_stack.last ||0
+            current_indent = indent_stack.last || 0
             tokens << [:DEDENT, indent.size]
           end
           tokens <<[:NEWLINE, "\n"]
-        else
-          raise "Missing':'"
         end
         i += indent.size + 1
       elsif operator = chunk[/\A(\|\||&&|==|!=|<=|>=)/, 1]
